@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class样式绑定</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 使用class样式的几种方法：
+        1、数组 :class = "['red','thin']"
+        2、三元表达式 :class = "isActive ? '' : 'active'"
+        3、对象 :class = "{'red': true,'thin':true}"
+        注：以上三种可相互组合嵌套使用
+     -->
+</head>
+<body>
+<div id="app">
+    <p :class = "['red','thin']">我是一行被用来测试（<strong>数组</strong>改变样式的）文字</p>
+    <p :class = "{'red': true,'thin':true}">我是一行被用来测试（<strong>对象</strong>改变样式的）文字</p>
+    <p :class = "isActive ? '' : 'active'">我是一行被用来测试（<strong>三元表达式</strong>改变样式的）文字</p>
+
+    <input type="button" value="点击改变样式" @click="toggleClass">
+    <p :class = "['red','thin',{'active': isActive}]">我是一行被用来测试（<strong>数组中嵌套对象</strong>改变样式的）文字</p>
+    <p :class = "['red','thin',isActive ? '' : 'active']">我是一行被用来测试（<strong>数组中嵌套三元表达式</strong>改变样式的）文字</p>
+
+    
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '消息',
+            isActive: true
+        },
+        methods: {
+            toggleClass() {
+                this.isActive ? this.isActive = false : this.isActive = true;
+            }
+        }
+    })
+</script>
+<style>
+.red {
+    color: red;
+}
+.thin {
+    font-weight: 200;
+}
+.active {
+    background-color: skyblue;
+}
+</style>
+</body>
+</html>

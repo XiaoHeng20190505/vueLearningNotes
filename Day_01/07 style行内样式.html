@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行内样式，也可抽象出对象使用</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 行内样式:style
+        1、直接定义行内样式
+        2、行内样式抽象出对象使用
+        3、对各样式可适用数组包含对
+     -->
+</head>
+<body>
+    <div id="app">
+        <p :style="{color:'red'}">{{ msg }}</p>
+        <p :style="styleObj1">{{ msg }}</p>
+        <p :style="[styleObj1,styleObj2]">{{ msg }}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '测试文字',
+                styleObj1: {color: 'red', 'font-style': 'italic'},
+                styleObj2: {color: 'skyblue', 'font-style': 'italic', 'font-weight': 100}
+            }
+            
+
+        })
+    </script>
+    
+</body>
+</html>

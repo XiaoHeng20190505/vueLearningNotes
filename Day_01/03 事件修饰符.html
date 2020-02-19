@@ -16,17 +16,32 @@
 	 -->
 </head>
 <body>
-	<!-- .stop冒泡事件，由内而外触发事件 -->
+	<!-- .stop阻止冒泡事件：由内而外触发事件。会阻止本身事件之外的所有处于冒泡链上的事件 -->
 	<!-- <div id="app" @click="divAlert">
 		<input type="button" value="点击我,有冒泡" @click="btnAlert">
 
 		<input type="button" value="点击我，我停止了冒泡" @click.stop="btnAlert">
 	</div> -->
-	<!-- .capture事件捕获机制 -->
-	<div id="app" @click="divAlert">
-		<input type="button" value="点击我,有冒泡" @click.capture="btnAlert">
 
-		<input type="button" value="点击我，我停止了冒泡" @click.stop="btnAlert">
+
+	<!-- .capture事件捕获机制，由外而内的出发事件，.capture要加在最外层的事件上。 -->
+	<!-- <div id="app" @click.capture="divAlert">
+		<input type="button" value="点击我,我最后才弹出" @click.capture="btnAlert">
+	</!--> 
+
+	<!-- .prevent阻止默认事件即阻止元素本身,此a标签不会跳转到B站，因为被阻止了-->
+	<!-- <div id="app" @click="divAlert">
+		<a href="https://www.bilibili.com/" @click.prevent="">百度链接</a>
+	</div> -->
+
+	<!-- .self只有在自身被点击的时候才会触发事件，但存在外部的冒泡事件 -->
+	<!-- <div id="app" @click="divAlert">
+		<input type="button" value="点击我,我触发了" @click.self="btnAlert">
+	</div> -->
+
+	<!-- .once只会触发一次事件，再次点击不会触发。存在外部的冒泡事件 -->
+	<div id="app" @click="divAlert">
+		<input type="button" value="点击我,我触发了" @click.once="btnAlert">
 	</div>
 	
 	
