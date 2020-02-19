@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>v-model数据双向绑定</title>
+	<script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+	<!-- 使用v-model可以实现 表单元素和Model 中数据的双向绑定 
+		注意：v-mdoel只能用于表单元素
+		表单元素包括：input（text,password,radio,address,email...） select checkbox等等
+	-->
+	<div id="app">
+		<p>{{ msg }}</p>
+		<input type="text" v-model="msg" style="width: 50%;">
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: '我是用来测试v-model数据双向绑定的'
+			},
+			methods: {
+
+			}
+		})
+	</script>
+</body>
+</html>

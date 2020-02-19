@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>事件修饰符</title>
+	<script src="../JS/vue-2.6.js"></script>
+	<!-- 事件修饰符包括：
+		1、.stop阻止冒泡
+		2、.prevent阻止默认事件，比如a标签，默认会跳转
+		3、.capture添加事件侦听器，使用事件捕获模式
+		4、.self只有当事件在该元素本身（除自身元素外都是算）触发时触发回调
+		5、.once事件只触发一次
+
+		注释：冒泡事件
+	 -->
+</head>
+<body>
+	<!-- .stop冒泡事件，由内而外触发事件 -->
+	<!-- <div id="app" @click="divAlert">
+		<input type="button" value="点击我,有冒泡" @click="btnAlert">
+
+		<input type="button" value="点击我，我停止了冒泡" @click.stop="btnAlert">
+	</div> -->
+	<!-- .capture事件捕获机制 -->
+	<div id="app" @click="divAlert">
+		<input type="button" value="点击我,有冒泡" @click.capture="btnAlert">
+
+		<input type="button" value="点击我，我停止了冒泡" @click.stop="btnAlert">
+	</div>
+	
+	
+</body>
+<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			btnMsg : '我是按钮',
+			divMsg: '我是最外层div'
+		},
+		methods: {
+			btnAlert() {
+				alert(this.btnMsg)
+			},
+			divAlert() {
+				alert(this.divMsg)
+			}
+		}
+	})
+	
+</script>
+</html>

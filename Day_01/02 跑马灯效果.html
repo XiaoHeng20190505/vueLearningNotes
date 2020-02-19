@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>跑马灯效果</title>
+	<script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+<div id="app">
+	<input type="button" value="滚动" @click="start">
+	<input type="button" value="停止" @click="stop">
+
+	<p> {{ msg }}</p>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			msg : '我是跑马灯，浪起来!!',
+			isInterval: null	//用于判断当前是否有跑马灯正在运行
+		},
+		methods: {
+			start() {
+				if (this.isInterval) return;
+				// setInterval是时间定时器，每个固定时间出发一次
+				this.isInterval = setInterval(() =>{
+					let msgStart = this.msg.substring(0,1)
+					let msgEnd = this.msg.substring(1)
+					this.msg = msgEnd+msgStart
+					console.log(this.msg)
+				},300)
+			},
+			stop() {
+				// clearInterval清除定时器效果，参数为setInterval的返回值。才能清除相应的定时器。
+				clearInterval(this.isInterval)
+				this.isInterval = null
+			}
+		}
+	})
+</script>
+	
+</body>
+</html>

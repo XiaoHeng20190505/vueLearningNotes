@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>01 v-cloak v-text v-html</title>
+	<script src="../JS/vue-2.6.js"></script>
+</head>
+<!-- vue的基本概述
+	vue是基于MVVM原理的，分为View, ViewModel, Model三层，ViewModel是View和Model之间的桥梁。
+	vue的特点是数据驱动视图。所有的操作都会经过ViewModel，View和Model之前不能互相操作，只能通过ViewModel来操作。
+	相对于HTML文档来说：View就是HTML元素页面，Model就是vm的data数据属性，ViewModel就是Vue实例，包括里边的函数等。
+ -->
+
+<body>
+	<div id="app">
+		<!-- {{ msg }}插值表达式法。
+			旧版本会产生插值闪烁的问题，即网络较慢时，网页会出现{{ msg }}整个字符串。这时需要有v-cloak来解决插值闪烁，不显示插值原本的字符串。
+			注意：
+				1、现在的浏览器已经不存在插值闪烁的问题了。所以v-cloak也淘汰掉了。
+				2、插值表达式只会占用本身的占位，如果{{ msg }}之外出现其他字符串是不会被替代的。
+				3、v-cloak的作用是给元素添加一个display: none的样式，才不显示的。
+		-->
+		<p v-cloak>{{ msg }}</p>
+		<!-- 只会替代msg的占位符 -->
+		<p>+++++{{ msg }}-----</p>
+
+		<!-- v-text属性表达式，会覆盖元素内的所有占位符 -->
+		<p v-text="msg"> ++++{{ msg }}++++</p>
+
+		<!-- 插值表达式和v-text属性表达式，只能替换字符串，如果有HTML元素并不会渲染元素。
+			但是v-html可以。如果字符串中存在HTML元素，会被解析 -->
+		<p v-html="msg2"></p>
+
+		<!-- v-bind 是Vue中，提供的用于绑定属性的指令。
+			1、v-bind:属性名，v-bind可省略，只写 :属性名
+			2、v-bind是数据单箱绑定。有Model->ViewModel->View。反之不可行。
+			3、可在属性中放置属性表达式。可以写合法的JS表达式
+		-->
+		<input type="button" title="自带title属性" value="按钮1">
+		<input type="button" v-bind:title="mytitle+123" value="按钮2">
+
+		<!-- Vue 中提供了 v-on事件指令：事件绑定机制 
+			1、v-on:事件名（Windows支持的），值为函数名。
+			2、v-on:可写成@，是一样的效果
+		-->
+		<input type="button" value="事件绑定按钮" title="这里绑定了一个点击事件" v-on:click="myAlert">
+		<input type="button" value="事件绑定按钮@" title="这里绑定了一个点击事件省略了v-on:" @click="myAlert">
+
+		<div id="app1">
+			<!-- @click和onclick是不通用的 
+				@click是vue用的事件绑定，值不可以JS代码，要写函数名
+				onclick是HTML自带的事件绑定，是写JS代码的，不能只写函数名，不能使用vue的函数。
+			-->
+			<input type="button" value="点击我" onclick="btnAlert()">
+		</div>
+
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是一条vue消息',
+				msg2: '<h4>这个一个HTML元素</4>',
+				mytitle: '自定义的title'
+			},
+			methods: {	//methods属性定义了当前Vue实例对象vm可以使用的所有方法，在方法里边使用this指向的是vm实例，可改写成ES6剪头函数，将this再次指向window
+				myAlert() {
+					alert('自定义弹窗！！')
+				}
+			}
+		})
+		var btnAlert = function () {
+			alert("onclick事件")
+		}
+	</script>
+</body>
+
+</html>
