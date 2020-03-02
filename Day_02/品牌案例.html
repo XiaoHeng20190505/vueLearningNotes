@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌案例</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="id">
+                <el-input v-model="formInline.id" placeholder="id"></el-input>
+            </el-form-item>
+            <el-form-item label="name">
+                <el-input v-model="formInline.name" placeholder="名称"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onAdd">添加</el-button>
+            </el-form-item>
+            <el-form-item label="搜索名称关键字：">
+                <el-input v-model="formInline.searchKey" placeholder=""></el-input>
+            </el-form-item>
+        </el-form>
+
+        <el-table :data="tableData" stripe style="width: 100%">
+            <el-table-column prop="id" label="id" width="180">
+            </el-table-column>
+            <el-table-column prop="name" label="名称" width="180">
+            </el-table-column>
+            <el-table-column prop="date" label="日期" width="180">
+            </el-table-column>
+            <el-table-column    label="操作" width="180">
+                <template slot-scope="scope">
+                    <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
+                        移除
+                    </el-button>
+                </template>
+            </el-table-column>
+
+        </el-table>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                formInline: {
+                    id: '',
+                    name: '',
+                    searchKey: ''
+                },
+                tableData: [{
+                    id: 1,
+                    name: '王小虎',
+                    date: '2016-05-02',
+                }, {
+                    id: 2,
+                    name: '王小虎',
+                    date: '2016-05-04',
+                }, {
+                    id: 3,
+                    name: '王小虎',
+                    date: '2016-05-01',
+                }, {
+                    id: 4,
+                    name: '王小虎',
+                    date: '2016-05-03',
+                }]
+            },
+            methods:{
+                deleteRow(index, row) {
+                    row.splice(index,1)
+                },
+                onAdd() {
+                    let a = {id: this.formInline.id,name: this.formInline.name,date: this.formatDate()}
+                    this.tableData.push(a)
+                },
+                formatDate() {
+                    let date = new Date()
+                    let year = date.getFullYear();
+                    let month = ('0'+(date.getMonth()+1)).slice(-2)
+                    let day = ('0'+date.getDate()).slice(-2)
+                    let hours = ('0'+date.getHours()).slice(-2) 
+                    let minutes = ('0'+date.getMinutes()).slice(-2) 
+                    let seconds = ('0'+date.getSeconds()).slice(-2) 
+                    return year+'-'+month+'-'+day+'\t'+hours+':'+minutes+':'+seconds
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
