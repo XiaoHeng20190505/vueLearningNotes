@@ -14,6 +14,7 @@
 
 <body>
     <div id="app">
+        <!-- 表单输入 -->
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="id">
                 <el-input v-model="formInline.id" placeholder="id"></el-input>
@@ -25,32 +26,94 @@
                 <el-button type="primary" @click="onAdd">添加</el-button>
             </el-form-item>
             <el-form-item label="搜索名称关键字：">
-                <el-input v-model="formInline.searchKey" placeholder=""></el-input>
+                <input 
+                class="el-input el-input__inner" 
+                v-model="formInline.searchKey" 
+                placeholder="" 
+                @blur="searchKeys"
+                v-focus 
+                v-color = "'blue'"></input>
             </el-form-item>
         </el-form>
-
-        <el-table :data="tableData" stripe style="width: 100%">
+        <!-- 表格显示 -->
+        <el-table :data="searchData" stripe style="width: 100%">
             <el-table-column prop="id" label="id" width="180">
             </el-table-column>
             <el-table-column prop="name" label="名称" width="180">
             </el-table-column>
             <el-table-column prop="date" label="日期" width="180">
             </el-table-column>
-            <el-table-column    label="操作" width="180">
+            <el-table-column label="操作" width="180">
                 <template slot-scope="scope">
-                    <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
+                    <el-button @click.native.prevent="deleteRow(scope.$index, searchData)" type="text" size="small">
                         移除
                     </el-button>
                 </template>
             </el-table-column>
 
         </el-table>
+        <footer>
+            <p v-fontsize="'30px'">{{ msg | dateFormat(msg) }}</p>
+        </footer>
 
     </div>
     <script>
+        /* 定义私有全局过滤器，只能用于插值表达时和v-bind表达式中。全部VM实例都可以调用。
+            如果全局过滤器和私有过滤器名称相同，会采取就近原则，优先调用局部过滤器
+        */
+        Vue.filter('dateFormat', function (date) {
+            let suffix = 'CN-全局Vue过滤器'
+            return `${date}-${suffix}`  //模板字符串
+        })
+        /*使用Vue.directive()，自定义全局指令
+        参数1：指令名称，定义时，前面不需要加v-的前缀，但使用时必须奸商v-前缀。指令的绑定值可以是值也可以是JS表达式。
+        参数2：是一个对象，对象上有一些指令相关的函数，在函数的特定阶段执行
+            第2个参数名为binding，包含以下属性
+                name：指令名，不含v-前缀
+                value：指令的绑定值（如果时表达式，则获取表达式执行后的值）
+                oldvalue：指令绑定的前一个值，只在updated和componentUpdated钩子中可用
+                expression：字符串形式的表达式（如果时表达式，则获取表达式的字符串）
+                arg：传给指令的值
+                modifies：一个包含修饰符的对象
+        */
+        Vue.directive('focus', {
+            /*
+            所有的钩子函数中的第一个参数都是el，是原生的JS对象
+            */
+            /*
+            坑：el-input不能添加自定义指令，
+            因为el-input解析出来的DOM树并不是单纯的input标签，所以自定义指令无法添加到el-input上。要查看你的标签解析出来的DOM树是什么样的
+            可比较在浏览器中比较el-input和input的DOM树
+            */
+            bind: function () {  //只调用一次，指令第一次绑定到元素上时。样式相关的设置
+
+            },
+            inserted: function (el) {  //只执行一次，被绑定元素插入到父节点时。行为相关的设置
+                el.focus()
+            },
+            updated: function () {   //可能多次触发，所有组件的VNode更新时调用
+
+            },
+            componentUpdated: function () {  //指令所在组件的VNode及其子VNode全部更新后调用
+
+            },
+            unbind: function () {    //只执行一次，指令与元素解绑时调用
+
+            }
+        })
+        Vue.directive('color', {
+            bind: function (el, binding) {
+                el.style.color = binding.value
+            }
+        })
+        /*
+        创建Vue实例
+        */
         var vm = new Vue({
             el: '#app',
             data: {
+                msg: '显示尾部',
+                searchData: [],
                 formInline: {
                     id: '',
                     name: '',
@@ -74,26 +137,78 @@
                     date: '2016-05-03',
                 }]
             },
-            methods:{
+            methods: {
                 deleteRow(index, row) {
-                    row.splice(index,1)
+                    row.splice(index, 1)
                 },
                 onAdd() {
-                    let a = {id: this.formInline.id,name: this.formInline.name,date: this.formatDate()}
+                    let a = { id: this.formInline.id, name: this.formInline.name, date: this.formatDate() }
                     this.tableData.push(a)
                 },
+                //格式化日期为：YYYY-MM-DD HH:MM:SS
                 formatDate() {
+                    // 第一种格式化日期
+                    // let date = new Date()
+                    // let year = date.getFullYear();
+                    // let month = ('0'+(date.getMonth()+1)).slice(-2)
+                    // let day = ('0'+date.getDate()).slice(-2)
+                    // let hours = ('0'+date.getHours()).slice(-2) 
+                    // let minutes = ('0'+date.getMinutes()).slice(-2) 
+                    // let seconds = ('0'+date.getSeconds()).slice(-2) 
+                    // return year+'-'+month+'-'+day+'\t'+hours+':'+minutes+':'+seconds
+                    // 第二种格式化日期
                     let date = new Date()
-                    let year = date.getFullYear();
-                    let month = ('0'+(date.getMonth()+1)).slice(-2)
-                    let day = ('0'+date.getDate()).slice(-2)
-                    let hours = ('0'+date.getHours()).slice(-2) 
-                    let minutes = ('0'+date.getMinutes()).slice(-2) 
-                    let seconds = ('0'+date.getSeconds()).slice(-2) 
-                    return year+'-'+month+'-'+day+'\t'+hours+':'+minutes+':'+seconds
+                    let year = date.getFullYear().toString().padStart(2, '0');
+                    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    let day = date.getDate().toString().padStart(2, '0');
+                    let hours = date.getHours().toString().padStart(2, '0');
+                    let minutes = date.getMinutes().toString().padStart(2, '0');
+                    let seconds = date.getSeconds().toString().padStart(2, '0');
+                    // return year+'-'+month+'-'+day+'\t'+hours+':'+minutes+':'+seconds
+                    return `${year}-${month}-${day}\t${hours}:${minutes}:${seconds}`    //模板字符串形式
+                },
+                //搜索数据表，当搜索关键字框失去焦点时执行：根据关键字搜索数据表，将符合的数据插入到新的呈现数据表中
+                searchKeys() {
+                    this.searchData = []
+                    let keys = this.formInline.searchKey
+                    if (keys.length == 0) {
+                        this.searchData = this.tableData
+                    } else {
+                        this.tableData.forEach(item => {
+                            if (item.name.indexOf(keys) >= 0) {
+                                this.searchData.push(item)
+                            }
+                        });
+                    }
+
+                }
+            },
+            mounted() {
+                //挂载一个函数执行，用于在页面初始化时，直接搜索数据表
+                this.searchKeys()
+            },
+            filters: {
+                // 定义私有局部过滤器。只能app使用，其他VM实例不能调用。
+                dateFormat(msg) {
+                    let suffix = '局部VM过滤器'
+                    return `${msg}-${suffix}`
+                }
+            },
+            directives: {
+                //自定义局部指令，只能在本Vue实例中使用
+                'color': {
+                    bind: function(el, binding) {
+                        el.style.color = binding.value
+                    }
+                },
+                //自定义指令的简写形式,只能应用于bind和updated钩子中
+                'fontsize': function(el, binding) {
+                    el.style.fontSize = binding.value
                 }
             }
         })
+
+
     </script>
 </body>
 

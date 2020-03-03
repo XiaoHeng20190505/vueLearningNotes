@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>动画</title>
+	<script src="../JS/vue-2.6.js"></script>
+	<!-- 自定义两组动画样式 -->
+	<style>
+		/* 并集样式中间用逗号隔开 */
+		/*
+		enter 【时间点】进入之前，元素的初始状态
+		leave-to 【时间点】离开之后，动画结束之后元素的状态
+		*/
+		.v-enter , 
+		.v-leave-to {	
+			opacity: 0;
+			transform: translateX(150px);
+		}
+		.v-enter-to , .v-leave {
+			opacity: 1;
+		}
+
+		.v-enter-active,
+		.v-leave-active {
+			transition: all 1s ease;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="app">
+		<button @click=" flag = !flag">动画</button>
+		<!-- 使用transition元素 将动画包裹起来 -->
+		<transition >
+			<h1 v-if="flag">这是一个标签</h1>
+		</transition>
+
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				flag: true
+			},
+			methods: {
+				//声明函数
+			},
+			mounted() {
+				//VM实例渲染之后，挂载函数的钩子
+			}
+		})
+	</script>
+</body>
+</html>
