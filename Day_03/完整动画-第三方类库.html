@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>完整动画-第三方类库</title>
+	<script src="../JS/vue-2.6.js"></script>
+	<link rel="stylesheet" href="../CSS/animate.css">
+	<!-- 自定义两组动画样式 -->
+	<style>
+		/* 并集样式中间用逗号隔开 */
+		/*
+		v-enter 【时间点】进入之前，元素的初始状态
+		v-leave-to 【时间点】离开之后，动画结束之后元素的状态
+		*/
+		.v-enter , 
+		.v-leave-to {	
+			opacity: 0;
+			transform: translateX(150px);
+		}
+		.v-enter-to , .v-leave {
+			opacity: 1;
+		}
+		/* 
+		v-enter-active 【入场动画的时间段】 
+		v-leave-active 【出场动画的时间段】
+		*/
+		.v-enter-active,
+		.v-leave-active {
+			transition: all 1s ease;
+		}
+
+		.my-enter , 
+		.my-leave-to {	
+			opacity: 0;
+			transform: translateY(150px);
+		}
+		.my-enter-to , .my-leave {
+			opacity: 1;
+		}
+		/* 
+		v-enter-active 【入场动画的时间段】 
+		v-leave-active 【出场动画的时间段】
+		*/
+		.my-enter-active,
+		.my-leave-active {
+			transition: all 1s ease;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="app">
+		<button @click=" flag = !flag">动画h1</button>
+		<!-- 使用transition元素 将动画包裹起来.
+			系统会自动调用tansition相关的样式，默认使用v-前缀，可通过设置name属性值，改变前缀 -->
+		<transition >
+			<h1 v-if="flag">这是一个标签</h1>
+		</transition>
+
+		<button @click=" flag2 = !flag2">动画myh1</button>
+		<!-- 使用transition元素 将动画包裹起来.
+			系统会自动调用tansition相关的样式，默认使用v-前缀，可通过设置name属性值，改变前缀 -->
+		<transition name="my" >
+			<h1 v-if="flag2">这是一个标签</h1>
+		</transition>
+
+		<button @click=" flag3 = !flag3">动画animate</button>
+		<!-- 使用第三方样式库，必须要添加基础样式animated，然后跟随效果 
+		animated可以放在transition上也可以放在元素本身
+		:duration可选属性，设置离场和入场的动画时间，
+		:duration="毫秒值"：统一设置动画持续时间
+		:duration="{enter：毫秒值，leave：毫秒值}"：添加对象可分开设置持续动画时间
+	-->
+		<transition enter-active-class="animated zoomInUp" leave-active-class="animated zoomOutDown" :duration="4000">
+			<h1 v-if="flag3">这是一个标签</h1>
+		</transition>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				flag: true,
+				flag2: true,
+				flag3: true
+			},
+			methods: {
+				//声明函数
+			},
+			mounted() {
+				//VM实例渲染之后，挂载函数的钩子
+			}
+		})
+	</script>
+</body>
+</html>

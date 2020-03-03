@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>半场动画</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 使用JS钩子函数实现半场动画，只需要执行入场/出场即可 -->
+    <style>
+        #ball {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="flag=!flag">小球动画</button>
+        <transition
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+        >
+            <div id="ball" v-if="flag"></div>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false
+            },
+            methods: {
+                beforeEnter(el) {
+                    el.style.transform = 'translate(0, 0)'   //设置小球的初始位置
+                },
+                enter(el, done) {   
+                    el.offsetHeight //为了显示过渡的轨迹，即强制页面刷新，看到小球的运动轨迹
+                    el.style.transform = 'translate(300px, 300px)'   //小球的最终位置是150px，150px。除非是0，其他位置都需要带px后缀
+                    el.style.transition = 'all 1s ease' //小球如何运行
+                    done()  //调用done函数立即执行afterEnter钩子函数，否则会同步执行，等到enter执行完成之后，再执行afterEnter函数
+                },
+                afterEnter(el){
+                    this.flag = false   //动画结束后，将小球隐藏掉
+                }
+
+            },
+            mounted() {
+
+            }
+        })
+    </script>
+</body>
+</html>

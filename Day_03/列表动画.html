@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表动画</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 1、使用transition-group实现列表的动画
+    2、更改transition-group默认DOM解析
+    3、动画消失效果 -->
+    <style>
+        .v-enter , 
+		.v-leave-to {	
+			opacity: 0;
+			transform: translateY(150px);
+		}
+		.v-enter-to , .v-leave {
+            transition: all 1s ease;
+		}
+		/* 
+		v-enter-active 【入场动画的时间段】 
+		v-leave-active 【出场动画的时间段】
+		*/
+		.v-enter-active,
+		.v-leave-active {
+			transition: all 1s ease;
+		}
+        /* 使用以下.v-move 和 .v-leave-active 可使列表后续元素慢慢飘上来 */
+        .v-move {
+            transition: all 1s ease;
+        }
+        .v-leave-active {
+            position:absolute;
+        }
+
+        li {
+            border: dashed 1px black;
+            margin: 5px;
+            line-height: 20px;
+            padding: 5px;
+        }
+        li:hover {
+            background-color: lightgreen;
+            transition:ease 1s all;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <label >
+            id:
+            <input type="text" v-model="id">
+            id:
+            <input type="text" v-model="name">
+            <button @click="add">添加</button>
+        </label>
+            <!-- 列表动画，不能使用transiton包裹，需要用transition-group包裹才有效果 必需要有:keys属性
+            appear属性，显示列表动画入场效果
+            transition-group在DOM树中默认解析为span标签（不符合W3C标准），tag属性可以更改默认解析
+            -->
+            <transition-group appear tag="ul">
+                <li v-for="(item, index) in list" :key="item.id" @click="del(index)">{{ item.id +'-'+ item.name}}</li>
+            </transition-group>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                list: [
+                    {id:1, name: 'zs'},
+                    {id:2, name: 'ls'},
+                    {id:3, name: 'we'},
+                    {id:4, name: 'mz'}
+
+                ]
+            },
+            methods: {
+                add() {
+                    this.list.push({id:this.id, name:this.name})
+                },
+                del(index) {
+                    this.list.splice(index,1)
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
