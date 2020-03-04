@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件间的切换 02</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- 
+        1、第二种组件切换方式
+        2、加上动画 -->
+        <style>
+            .v-enter,
+            .v-leave-to {
+                opacity: 0;
+                transform: translate(150px);
+            }
+
+            .v-enter-active,
+            .v-leave-active {
+                transition:ease 0.3s all
+            }
+            a:hover{
+                background-color: lightgray;
+            }
+            a {
+                text-decoration: none;
+            }
+        </style>
+</head>
+<body>
+    <div id="app">
+        <a href="void(0)" @click.prevent="flag = 'login'">登陆</a>
+        <a href="void(0)" @click.prevent="flag = 'register'">注册</a>
+
+        <!-- 第二种组件切换方式 -->
+        <!-- <component :is="flag"></component> -->
+
+        <!-- 组件切换添加动画效果，mode属性指定动画模式，可设定先离场动画，后入场动画 -->
+        <transition mode="out-in">
+            <component :is="flag"></component>
+        </transition>
+
+    </div>
+
+    <!-- 声明组件的HTML结构 -->
+    <template id="tmp1">
+        <div>
+            <p>登陆页面</p>
+        </div>
+    </template>
+
+    <template id="tmp2">
+        <div>
+            <p>注册界面</p>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: 'login'
+            },
+            components: {
+                login: {
+                    template: '#tmp1'
+                },
+                register: {
+                    template: '#tmp2'
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件化</title>
+    <script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mycom3></mycom3>
+        <!-- 模板使用 -->
+        <mycom4></mycom4>
+        <!-- 私有组件的引用 -->
+        <mypersoncom></mypersoncom>
+    </div>
+    <!-- 模板声明位置 template中只能有一个根元素，否则会报错。此例子中的根元素为div-->
+    <template id="tmp">
+        <div>
+            这是一个直接写的template模板
+        </div>
+    </template>
+    <template id="tmp2">
+        <div>
+            <h3>这是一个私有的template模板</h3>
+        </div>
+    </template>
+    <script>
+        //定义全局组件
+        Vue.component('mycom3', {
+            template: '<h3>这是组件模板h3</h3>'//template模板只能包含在唯一的根元素中，不能存在两个根元素
+        })
+        Vue.component('mycom4', {
+            template: '#tmp'    //注册模板
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            // 定义私有组件，只能本vue实例使用
+            components: {
+                mypersoncom: {
+                    template: '#tmp2'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

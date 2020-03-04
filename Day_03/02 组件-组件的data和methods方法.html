@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的data属性和methods方法</title>
+    <script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mycom></mycom>
+    </div>
+
+    <!-- 定义组件结构 -->
+    <template id="tmp">
+        <div>
+            <button @click="add">计数</button>
+            <p>{{ count }}</p>
+        </div>
+    </template>
+    <script>
+        // 定义全局组件
+        Vue.component('mycom', {    //注册组件
+            template: '#tmp',
+            data() {    //定义data，必需是data函数，必需返回一个对象
+                return {    //返回的对象也可以引用外部全局变量，但使用全局变量会影响到其他引用此全局变量的组件
+                    count: 0
+                }
+            },
+            methods: {
+                add() {
+                    ++ this.count
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'message'
+            }
+        })
+    </script>
+    
+</body>
+</html>

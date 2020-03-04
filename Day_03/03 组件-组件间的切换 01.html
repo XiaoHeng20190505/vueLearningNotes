@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件间的切换 01</title>
+    <script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a href="void(0)" @click.prevent="flag = true">登陆</a>
+        <a href="void(0)" @click.prevent="flag = false">注册</a>
+
+        <login v-if="flag"></login>
+        <register v-if="!flag"></register>
+
+    </div>
+
+    <!-- 声明组件的HTML结构 -->
+    <template id="tmp1">
+        <div>
+            <p>登陆页面</p>
+        </div>
+    </template>
+
+    <template id="tmp2">
+        <div>
+            <p>注册界面</p>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            },
+            components: {
+                login: {
+                    template: '#tmp1'
+                },
+                register: {
+                    template: '#tmp2'
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
