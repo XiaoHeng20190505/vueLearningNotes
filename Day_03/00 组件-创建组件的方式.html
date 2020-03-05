@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="../JS/vue-2.6.js"></script>
+</head>
+<body>
+	<div id="app">
+		<mycom></mycom>
+		<my-com1></my-com1>
+		<mycom2></mycom2>
+	</div>
+	<script>
+		// 第一种组件注册使用
+		// 定义全局组件，返回的com是一个组件模板，可以注册使用
+		var com = Vue.extend({
+			template: '<h3 title="第一种组件注册使用">这个一个H3 Vue组件</h3>'//template属性，指定了组件HTML的结构
+		})
+		// 注册组件使用
+		/*
+		如果组件名称有驼峰，名称为myCom，使用时转换小写，并加上连接符：<my-com></my-com>		Vue.component('myCom', com)
+		如果没有驼峰，直接拿来用就行<mycom></mycom>		Vue.component('mycom', com)
+		*/
+		Vue.component('mycom', com)//mycom为组件引用名称，com为引用的组件模板
+
+		// 第二种组件注册使用，实际为第一种的简写
+		Vue.component('myCom1', Vue.extend({
+			template: '<h1 title="实际是第一种组件注册使用的简写">这是第二种Vue组件注册模板的写法</h1>'
+		}))
+
+		// 第三种组件注册使用
+		Vue.component('mycom2', {
+			template: '<h6 title="比第二种组件注册使用的写法更简写">这是第三种Vue组件注册模板的写法</h6>'
+		})
+
+
+		//组件注册使用要在创建Vue实例之前，不然没法调用。
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: 'message'
+			},
+		})
+		
+
+
+
+	</script>
+</body>
+</html>
