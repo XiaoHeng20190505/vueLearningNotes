@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>02 父组件传方法给子组件及子组件给父组件传值</title>
+	<script src="../JS/vue-2.6.js"></script>
+	<!-- 子组件调用父组件的方法：父组件通过事件绑定机制传方法名给子组件，子组件通过$emit方法调用
+	$emit('函数名'，参数1，参数2，...)
+	可通过函数的参数进行父子组件间的通信 -->
+
+	
+</head>
+<body>
+	<div id="app">
+		<mycom @parentfunc="parentfunc"></mycom>
+	</div>
+
+	<!-- 组件html结构声明 -->
+	<template id="tmp">
+		<div>
+			<input type="button" value="这是子组件中的按钮，点击调用父组件的方法，并进行父子组件间的通信" @click="childfunc">
+		</div>
+	</template>
+	<script>
+		//声明注册全局组件
+		Vue.component('mycom', {
+			template: '#tmp',
+			methods: {
+				childfunc(){
+					this.$emit('parentfunc',data)
+				}
+			}
+		})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: '我是父组件的信息',
+				parentData: null	//父组件的数据对象
+			},
+			methods: {
+				parentfunc(data) {
+					alert('我是父组件的信息'+this.msg)
+				}
+			}
+		})
+	</script>
+</body>
+</html>

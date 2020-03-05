@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>父组件给子组件传值</title>
+	<script src="../JS/vue-2.6.js"></script>
+	<!-- 父组件通过v-bind属性传值给子组件，子组件通过props接收父组件的传值 -->
+
+</head>
+<body>
+	<div id="app">
+		<p>下边是父组件传给字组件的值</p>
+		<!-- 通过v-bind属性绑定传值，不能使用驼峰 -->
+		<mycom  :parentmsg="msg"></mycom>
+	</div>
+	<!-- 组件的html结构声明 -->
+	<template id="tmp">
+		<div>
+			<p style="color: red;">{{ parentmsg }}</p>
+		</div>
+	</template>
+	<script>
+		//定义全局组件
+		Vue.component('mycom', {
+			template: '#tmp',
+			data() {	//子组件的数据，是可读可写属性
+				return {
+					msg: '子组件的数据定义'
+				}
+			},
+			props: ['parentmsg']	//用于接收父子间传递进子组件的值。唯一的一个数组，只读属性。更改可以通过，但报错。
+		})
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是传给子组件的值'
+			}
+		})
+	</script>
+	
+</body>
+</html>
