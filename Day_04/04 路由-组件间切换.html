@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路由实现组件间切换</title>
+    <!-- 路由可实现组件的却换，可用于界面或者单页面内的组件切换 -->
+    <!-- 可将router-view用transition包裹起来，实现组件切换的动画 -->
+    <script src="../JS/vue-2.6.js"></script>
+    <script src="../JS/vue-router v3.1.6.js"></script>
+    <style>
+        .myclass {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 链接必须要添加#号，表示锚 -->
+        <!-- 使用a链接跳转不方便，可使用router自带的元素标签 ，
+            实际渲染出来的仍是一个a标签,
+            tag属性可改变默认的渲染的标签元素-->
+        <!-- <a href="#/login">登陆</a>
+        <a href="#/register">注册</a> -->
+        <!-- to属性代表指向对应的路由 -->
+        <router-link to="/login" tag="span">登陆</router-link>
+        <router-link to="/register">注册</router-link>
+        <!-- router-link在渲染时，会默认渲染成a标签，给a标签添加一些样式类，
+        其中router-link-active，是激活时的样式，可自己改变样式的设定
+
+        第一种方式时直接改变router-link-active的样式设定，
+        第二种方式，是在VueRouter构造器中设定自定义的类样式，取代默认router-link-active样式 -->
+
+
+        <!-- 使用router自带的元素标签 -->
+        <router-view></router-view>
+
+    </div>
+
+    <!-- 组件HTML结构声明 -->
+    <template id="tmplogin">
+        <div>
+            <p>登陆组件</p>
+        </div>
+    </template>
+
+    <template id="tmpregister">
+        <div>
+            <p>注册组件</p>
+        </div>
+    </template>
+
+    <script>
+        // 组件的注册
+        /*这种写法不行
+        Vue.component('login1', {
+            template: 'tmplogin'
+        })
+        Vue.component('register1', {
+            template: 'tmpregister'
+        })*/
+        var login = {
+            template: '#tmplogin'
+        }
+
+        var register = {
+            template: '#tmpregister'
+        }
+
+        // 路由的初始化，将组件与路由绑定在一起
+        var routerObj = new VueRouter({
+            routes: [
+                //路由规则
+                // 每一个路由规则都是一个对象，身上必须有两个属性
+                // 属性1：path，表示监听哪个路由链接地址
+                // 属性2：component，如果路由匹配到path，则展示对应的component组件
+                // 注意：component的属性值，必须是一个组件模板，不能是组件的引用名称
+                // {path: '/', component: login},//path只有一个'/'可改变URL的默认指向，但是不推荐，因为此时URL和login的URL不相同，但指向同一个组件，造成混乱
+                {path: '/', redirect: '/login'},//实现重定向，这种比较推荐，实现显示指定组件的操作
+                {path: '/login', component: login},    //component的值不能是字符串，必须是实际的模板
+                {path: '/register', component: register}
+            ],
+            linkActiveClass: 'myclass'  //设定自定义的类样式，取代默认router-link-active样式
+
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {},
+            router: routerObj   //添加路由的监听，展示对应的组件
+        })
+    </script>
+    
+</body>
+</html>

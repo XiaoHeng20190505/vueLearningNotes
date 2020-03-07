@@ -11,24 +11,36 @@
 
 	
 </head>
-<body>
+<body> 
 	<div id="app">
+		
 		<mycom @parentfunc="parentfunc"></mycom>
 	</div>
 
 	<!-- 组件html结构声明 -->
 	<template id="tmp">
 		<div>
-			<input type="button" value="这是子组件中的按钮，点击调用父组件的方法，并进行父子组件间的通信" @click="childfunc">
+			<input 
+			type="button" 
+			value="这是子组件中的按钮，点击调用父组件的方法，并进行父子组件间的通信" 
+			@click="childfunc">
 		</div>
 	</template>
 	<script>
 		//声明注册全局组件
 		Vue.component('mycom', {
 			template: '#tmp',
+			data() {
+				let childData = {
+					msg: '我是子组件的数据'
+				}
+				return {	//返回的对象是大括号内包含的对象
+					childData
+				}
+			},
 			methods: {
 				childfunc(){
-					this.$emit('parentfunc',data)
+					this.$emit('parentfunc',this.childData)
 				}
 			}
 		})
@@ -40,8 +52,11 @@
 				parentData: null	//父组件的数据对象
 			},
 			methods: {
-				parentfunc(data) {
-					alert('我是父组件的信息'+this.msg)
+				parentfunc(data) {	//通过参数，可实现子组件给父组件进行传值
+					this.parentData = data
+					document.write('<mark>'+this.parentData.msg+'</mark>')
+					alert('我是父组件的信息+'+data.msg)
+					// console.log(data.msg)
 				}
 			}
 		})

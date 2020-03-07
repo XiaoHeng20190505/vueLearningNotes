@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ref获取元素和组件</title>
+    <script src="../JS/vue-2.6.js"></script>
+    <!-- ref获取元素和组件,类似于document.getElementById('id'),
+        可操作DOM元素。也可获取组件，使父组件调用子组件的值和方法 -->
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="点击我，查看ref的内容" @click="myclick">
+        <!-- 将p元素防止到ref中 -->
+        <p id="msg1" ref="msg1">我是一段文字</p>
+        <!-- 将子组件放置到ref中，可通过this.$refs.mycom调用子组件的数据和方法 -->
+        <mycom ref="mycom"></mycom>
+    </div>
+
+    <template id="tmp">
+        <div>
+            <p>{{ msg }}</p>
+        </div>
+    </template>
+
+    <script>
+        Vue.component('mycom', {
+            template: '#tmp',
+            data() {
+                return {
+                    msg: '我是子组件的消息',
+                    childfunc(){
+                        alert('我是子组件的方法')
+                    }
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                myclick() {
+                    console.log(this.$refs)
+                    console.log(this.$refs.mycom.msg)//通过注册ref，调用子组件的数据和方法
+                    this.$refs.mycom.childfunc()
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
