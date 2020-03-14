@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- position定位注意点
+	
+	1、relative：会使元素脱离普通文档流，但是普通文档流中仍然为其保留位置。相对于父包含框定位
+	2、absolute：会使元素脱离普通文档流，原普通文档流中不为其留位置，直接在普通文档流中删除。
+				 定位方式：从内到外，找包含定位属性(position，不论父级元素的position值（除static，因为默认是没有定位）是什么)的祖先元素，
+				 			使用top、right、bottom、right来改变其位置，
+							如果祖先元素中找不到包含定位属性的元素，则最终根据根元素即html标签进行定位 
+				使用absolute脱离普通文档流的元素都会变成行内块元素,fixed也是。
+	3、fixed：会使元素脱离普通文档流，原普通文档流中不为其留位置，直接在普通文档流中删除。使用top、right、bottom、right来改变其位置。
+	4、sticky。
+
+	使用position进行垂直水平居中改变的位置是元素的左上角那一点的位置
+	-->
+</head>
+<body>
+	<div id="vertical" title="测试绝对定位垂直水平居中" style="border: 1px solid skyblue">
+		<div id="v1">
+			<div id="v11"></div>
+		</div>
+	</div>
+	<div id="position" title="测试相对布局relative的方式" style="border: 1px solid red;">
+		<div id="r1"></div>
+		<div id="r2"></div>
+	</div>
+
+	<div id="absolute" title="测试相对布局absolute的方式" style="border: 1px solid black;">
+		<div id="a1"></div>
+		<div id="a2"></div>
+		<div id="a3"></div>
+	</div>
+	<p>测试内容</p>
+
+
+	<style>
+		/* 测试垂直水平居中的效果 */
+		#v1 {
+			width: 150px;
+			height: 150px;
+			border: 1px solid black;
+			position: relative;
+		}
+		#v11 {
+			width: 50px;
+			height: 50px;
+			border: 1px solid red;
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			margin-top: -25px;
+			margin-left: -25px;
+		}
+		/* 测试position中relative的效果 */
+		#r1 {
+			width: 50px;
+			height: 50px;
+			border: 1px solid black;
+			position: relative;	
+			/* position会使元素脱离普通文档流，但是普通文档流中仍然为其保留位置 */
+			top: 100px;
+			left: 100px;
+		}
+		#r2 {
+			width: 50px;
+			height: 50px;
+			border: 1px solid skyblue;
+		}
+		/* 测试position中absolute的效果 */
+		#absolute {
+			position: fixed;
+		}
+		#a1 {
+			width: 50px;
+			height: 50px;
+			border: 10px solid blue;
+			position: absolute;
+			top: 30px;
+			left: 150px;
+		}
+		#a2 {
+			width: 50px;
+			height: 50px;
+			border: 2px dashed green;
+		}
+		#a3 {
+			width: 150px;
+			height: 150px;
+			background-color: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+	</style>
+</body>
+</html>

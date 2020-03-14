@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div id="horizon" title="水平居中" style="border: 1px solid skyblue;">
+		<p style="background-color: skyblue;">使用CSS直接操作</p>
+		<div style="border: 1px solid black; text-align: center;">
+			<a href="#" style="text-decoration: none;">行内元素:给父元素设置text-align: center</a>
+		</div>
+		<p style="text-align: center;border: 1px solid black;">块级元素文本水平居中：给本身设置text-align: center</p>
+		<h1 style="margin: 0 auto;width: 600px;border: 1px solid skyblue;">块级元素：定宽，设置margin: 0 auto</h1>
+		<div style="border: 1px solid red;text-align: center;">
+			<h6 style="display: inline-block;border: 1px solid black;">块级元素：不定宽，将块级元素设置display:inline-block/inline，且给父级元素设置text-align:center</h6>
+		</div>
+		<p style="background-color: skyblue;">使用flex布局</p>
+		<div style="border: 1px solid red;display: flex;justify-content: center;">
+			<span style="display: inline-block;border: 1px solid black;">块级元素:给父元素添加display:flex并设置justify-content: center</span>
+		</div>
+
+		<p style="background-color: skyblue;">使用定位属性</p>
+
+		<div style="border: 1px solid red;position: relative;">
+			<h6 style="position:absolute ;border: 1px solid black;left: 50%;transform: translateX(-50%);">
+				使用position定位，将元素脱离普通文档流，不定宽，使用transform: translateX(-50%)向X轴左移自身宽度的50%,定宽的话可使用margin-left:-自身宽度的一半（负的自身宽度的一半）
+			</h6>
+		</div>
+	</div>
+
+	<div id="vertival" title="垂直居中" style="margin-top: 200px;border: 1px solid red;">
+		<p style="border: 1px solid skyblue;background-color: lightgreen;">行内元素</p>
+		<div style="border: 1px solid black;width: 100%;height: 50px;">
+			<span style="line-height: 50px;border: 1px solid lightblue;">行高等于父元素的高度即可</span>
+		</div>
+		<div style="border: 1px solid blue;width: 100%;height: 50px;display: table;">
+			<span style="border: 1px solid black;display: table-cell;vertical-align: middle;">
+				将父元素当做table设置display:table，将子元素当成单元格设置display:tabel-cell，再设置单元格的vertical-align: middle设置垂直居中
+			</span>
+		</div>
+		<p style="border: 1px solid skyblue;background-color: lightgreen;">块级元素</p>
+		<div style="display: flex;align-items: center;width: 100%;height: 200px;border: 1px solid red;">
+			<h1 style="border:1px solid black">flex布局会将块级元素变成行内块元素，给父元素设置display:felx及align-item:center</h1>
+			<!-- <span style="border:1px solid black;height: 50px;">行内块元素</span> -->
+		</div>
+		<div style="border:1px solid yellow;position:relative;width: 100%; height: 200px;">
+			<div style="border: 1px solid pink; width: 800px; height: 50px; position: absolute;top:50%;transform:translateY(-50%);">
+			使用定位的方式，父元素设置为position:relative,将子元素设置为position:absolute;top:50%;定宽设置margin-top:-本身width/2，不定宽设置tranform:translateY(-50%)</div>
+		</div>
+	</div>
+
+	<div id="horizon-vertical" style="border: 1px solid green;margin-top: 20px;">
+		<p style="background-color: lightblue">使用flex布局</p>
+		<div style="border: 1px solid red;width:100%;height:100px; display: flex; justify-content: center; align-items:center">
+			<div style="border: 1px solid black">使用display:flex;justify-content:center;align-items:center</div>
+		</div>
+		
+		<p style="background-color: lightblue">使用position定位布局</p>
+		<div style="border:1px solid red; width: 100%; height: 100px; position:relative; ">
+			<div style="width:800px; height: 50px; border: 1px solid black; position: absolute; top: 50%; left: 50%;transform:translate(-50%,-50%)">
+				position定位:
+				父元素设置position:relative;
+				子元素：position: absolute; top: 50%; left: 50%;transform:translate(-50%,-50%)
+			</div>
+		</div>
+
+		<div style="border:1px solid red; width: 100%; height: 100px; position:relative; ">
+			<div style="width:800px; height: 50px; border: 1px solid black; position: absolute; top: 0; right:0; bottom: 0; left: 0;  margin:auto;">
+				position定位:
+				父元素设置position:relative;
+				子元素：position: absolute; top: 0; right:0; bottom: 0; left: 0;  margin:auto;
+			</div>
+		</div>
+	</div>
+<style>
+
+</style>
+</body>
+</html>
