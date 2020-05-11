@@ -4,11 +4,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>宽高百分比的计算规则</title>
+	
 	<style>
 		.father {
+			box-sizing: border-box;
 			border: 1px solid red;
-			height: 500px;
-			width: 800px;
+			padding: 50px;
+			margin: 50px;
+			height: 300px;
+			width: 600px;
 		}
 		.son {
 			border: 1px solid black;
@@ -20,6 +24,14 @@
 	</style>
 </head>
 <body>
+	<pre style="font-weight: bold;font-family: Arial, Helvetica, sans-serif;">
+		计算规则：
+			宽：继承父元素(content)宽的百分比
+			高：继承父元素(content)高的百分比
+			padding：继承父元素(content)宽的百分比
+			margin：继承父元素(content)宽的百分比
+		PS：不管是标准盒子模型还是怪异盒子模型，继承的都是父盒子的content内容的宽高。
+	</pre>
 	<div class="father">
 		<div class="son">内容</div>
 	</div>

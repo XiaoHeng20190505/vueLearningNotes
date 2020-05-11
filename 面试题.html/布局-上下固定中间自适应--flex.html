@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>布局-上下固定中间自适应--flex</title>
+</head>
+<style>
+	body{
+		height: 100vh;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+	}
+	.header {
+		width: 100%;
+		height: 50px;
+		background-color: tomato;
+	}
+	.main {
+		flex-grow: 2;	/* flex-grow 定义项目的放大比例。默认值为 0 ，即如果有剩余空间也不会放大。
+							如果所有项目的 felx-grow 都为 1 ，如果有剩余空间，会被平分。
+							如果有一个项目的 flex-grow 为 2，其他项目均为 1 则前者占据的剩余空间将比其他项目多一倍。 */
+		bottom: 50px;
+		width: 100%;
+		background-color: yellow;
+		/* margin-top: 50px; */
+		/* margin-bottom: 50px; */
+	}
+	.footer {
+		width: 100%;
+		height: 50px;
+		background-color: lightblue;
+	}
+
+</style>
+<body>
+	<div class="header">顶部导航栏</div>
+	<div class="main">1213</div>
+	<div class="footer">底部导航栏</div>
+	
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>布局-三栏布局--圣杯布局--左中右div</title>
+</head>
+<style>
+	body{
+		margin: 0;
+		padding-left: 100px;
+		padding-right: 100px;
+	}
+	.left {
+		position: relative;
+		left: -100px;
+		float: left;
+		/* margin-left: -100%; */
+		width: 100px;
+		height: 100px;
+		background: tomato;
+	}
+	.right {
+		position: relative;
+		right: -100px;
+		float: right;
+		margin-left: -100%;
+		width: 100px;
+		height: 100px;
+		background: gold;
+	}
+	.main {
+		float: left;
+		margin-left: -100px;
+		width: 100%;
+		height: 100px;
+		background: lightgreen;
+	}
+</style>
+
+<body>
+	<div class="left">测试文本测试文本测试文本</div>
+	<div class="main">main</div>
+	<div class="right">right</div>
+</body>
+
+</html>
