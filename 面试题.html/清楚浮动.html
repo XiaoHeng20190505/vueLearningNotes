@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		#father {
+			border: 1px solid red;
+			margin-top: 50px;
+			/* display: inline-block; */
+			/* position: relative; */
+			overflow: hidden;
+			zoom: 1;
+		}
+		#son{
+			border: 1px solid black;
+			height: 50px;
+			width: 100px;
+			float: left;
+		}
+		.clearfix {
+			clear: both;
+		}
+
+		#son1 {
+			border: 1px solid black;
+			height: 50px;
+			width: 100px;
+			float: left;
+		}
+		/* #father::after {
+			content: '.';
+			display: block;
+			height: 0px;
+			visibility: hidden;
+			clear: both;
+			
+		}
+		#father {
+			zoom: 1;
+		} */
+	</style>
+</head>
+<body>
+	<!-- <div id="father">
+		<span>文本</span>
+		<div id="son">浮动边框</div>
+		<div class="clearfix"></div>
+		
+	</div> -->
+	<span>另一个文本</span>
+	<div id="father">
+		<span>文本</span>
+		<div id="son1" class="son2">浮动边框</div>
+		
+	</div>
+	<span>另一个文本</span>
+</body>
+</html>

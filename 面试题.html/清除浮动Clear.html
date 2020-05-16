@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>clear元素清除浮动</title>
+	<!-- 
+		clear 的官当解释：使盒子的边不能与前面的元素相邻。
+		使用clear属性是为了避免浮动元素对该元素产生的影响，而不是清除掉浮动。
+		clear属性只对块级元素有效果。
+
+		一般使用伪元素法清除浮动
+		.clear::after{
+			content:'';
+			display:table;//也可以是'block'，或者是'list-item'
+			clear:both;
+			}
+		PS：由于 clear 只对块级元素有效，所以借助 display 将内联元素设置为块级元素
+	-->
+</head>
+<body>
+	<div class="clsdiv">
+		<div class="floatdiv"></div>
+		<div class="spanclear">文本</div>
+	</div>
+	<style>
+		.clsdiv {
+			padding: 2px;
+			border: 1px solid black;
+		}
+		.floatdiv{
+			width: 200px;
+			height: 200px;
+			float: left;
+			border: 1px solid red;
+		}
+		.spanclear{
+			clear:left;
+		}
+	</style>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>布局-三栏布局--flex</title>
+</head>
+<style>
+	body,div {
+		margin: 0;
+		padding: 0;
+		display: flex;
+	}
+	.left{
+		width: 100px;
+		height: 100vh;
+		background-color: lightskyblue;
+	}
+	.main{
+		flex-grow: 1;
+		height: 100vh;
+		background-color: tomato;
+	}
+	.right{
+		width: 100px;
+		height: 100vh;
+		background-color: lightsalmon;
+	}
+</style>
+<body>
+	<div class="left"></div>
+	<div class="main"></div>
+	<div class="right"></div>
+</body>
+</html>

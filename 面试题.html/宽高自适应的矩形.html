@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>宽高自适应的矩形</title>
+	<!-- 
+	三种实现方法
+		1、利用 vm 实现
+		2、利用 padding 继承父元素的 content 宽来实现
+		3、利用 伪元素 添加一个元素及 margin 继承父元素的 content 宽的百分比实现。使用 display 是因为内联元素设置 margin 对上下文无效 
+	-->
+	<style>
+		/* 利用 vm 实现 */
+		/* .spare {
+			width: 10%;
+			height: 10vw;
+			background-color: tomato;
+		} */
+
+		/* 利用 padding 继承父元素的 content 宽来实现。*/
+		/* .spare {
+			width: 20%;
+			height: 0;
+			padding-top: 20%;
+			background: orange;
+		} */
+
+		/* 利用 伪元素 添加一个元素及 margin 继承父元素的 content 宽的百分比实现。使用 display 是因为内联元素设置 margin 对上下文无效 */
+		.spare {
+			width: 30%;
+			overflow: hidden;
+			background: yellow;
+		}
+		.spare::after {
+			content: "";
+			display: block;
+			margin-top: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="spare"></div>
+</body>
+
+</html>
