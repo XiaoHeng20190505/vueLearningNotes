@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解析字符串</title>
+</head>
+
+<body>
+    <script>
+        // extractStr('My name is:Jerry. My age is:12.') // => ['Jerry', '12']
+         const extractStr = ((str) => {
+             let result = str.match(/:([^:\.])*?\./g) || []
+            //  return result.map(str => str.replace(/[:\.]/g, ''))
+            return result
+         })
+
+         console.log(extractStr('My name is:Jerry. My age is:12.'))
+    </script>
+</body>
+
+</html>

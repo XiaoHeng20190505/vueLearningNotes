@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 继承-05 寄生式继承</title>
+     <!-- 
+         思路：
+            创建一个仅用于封装继承过程的函数，该函数在内部以某种方式增强对象。
+        缺点：函数不能复用
+     -->
+</head>
+<body>
+    <script>
+       function object(o){
+           function f(){}
+           f.prototype = o
+           return new f()
+       }
+
+       function createAnother(original){
+           var clone = object(original)
+           clone.sayHi = function(){
+               alert("Hi")
+           }
+           return clone
+       }
+       var Person = {
+           name:"Nicholas",
+           friends: ["shelby","count","van"]
+       }
+
+       var anotherPerson = createAnother(Person)
+       anotherPerson.sayHi()
+
+    </script>
+</body>
+</html>

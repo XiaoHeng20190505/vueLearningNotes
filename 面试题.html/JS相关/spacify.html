@@ -1,0 +1,22 @@
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spacify</title>
+</head>
+
+<body>
+    <script>
+        //  "ScriptOJ".spacify() // => "S c r i p t O J"
+
+        String.prototype.spacify = function()  {
+            return this.split("").join(" ")
+        }
+        console.log("ScriptOJ".spacify())
+        
+    </script>
+</body>
+
+</html>

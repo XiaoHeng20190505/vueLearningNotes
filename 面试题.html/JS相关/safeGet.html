@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var data = { a: { b: { c: 'ScriptOJ' } } }
+        const safeGet = (obj, path) => {
+            try {
+                return path.split('.').reduce((obj, key) => obj[key], obj)
+            } catch {
+                return void 0
+            }
+        }
+
+        console.log(safeGet(data, 'a.b.c')) // => scriptoj
+        console.log(safeGet(data, 'a.b.c.d'))   // => 返回 undefined
+        console.log(safeGet(data, 'a.b.c.d.e.f.g'))  // => 返回 undefined
+        
+    </script>
+</body>
+
+</html>

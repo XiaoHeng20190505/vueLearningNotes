@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组拍平</title>
+</head>
+
+<body>
+
+    <script>
+        function* flatten2(array) {
+            let tmpArr = array.flat(Infinity)
+            for(let i=0; i<tmpArr.length;i++){
+                let res = tmpArr[i]
+                yield res
+            }
+
+        } 
+        const numbers = flatten2([1, [[2], 3, 4], 5])
+        console.log( numbers.next().value)
+        console.log( numbers.next().value)
+    </script>
+</body>
+
+</html>

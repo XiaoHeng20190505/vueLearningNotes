@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 继承--借用构造函数</title>
+    <!-- constructor stealing -->
+</head>
+<body>
+    <script>
+        // 优点示例：（针对 继承引用类型值的说明）
+        function SuperType(){
+            this.colors = ["red","blue","yellow"]
+        }
+        function SubType(){
+            SuperType.call(this)
+        }
+        let instance1 = new SubType()
+        let insrance2 = new SubType()
+        let insrance3 = new SubType()
+
+        console.log(instance1.colors)   // ["red", "blue", "yellow"]
+        console.log(insrance2.colors)   // ["red", "blue", "yellow"]
+
+        instance1.colors.push("black") //给 instance1 的 colors 添加一项颜色
+
+        console.log(instance1.colors)   // ["red", "blue", "yellow", "black"]
+        console.log(insrance2.colors)   // ["red", "blue", "yellow"]
+
+        console.log("-----------两个子实例对象中的 colors 不相等 即 两个colors的地址不同，代表在使用借用构造函数创建引用数据类型时，是在每个实例对象中创建的，各个实例对象中的引用数据类型的值互不影响--------------------")
+        console.log(insrance2.colors)
+        console.log(insrance3.colors)
+        console.log(insrance2.colors === insrance3.colors)
+
+        /*
+        借用构造函数实现继承：
+        优点：
+            可使每个实例对象中 引用数据类型 的值互不影响
+        缺点：
+            方法只能定义在构造函数内部，无法实现函数的复用，而且实例无法访问定义在构造函数原型上的方法
+
+        */
+
+        console.log("---------借用构造实现 方法的继承------------------------")
+        // 缺点示例：（针对 方法的继承）
+        function SuperType1(){
+            this.colors = "red"
+        }
+        SuperType.prototype.getSuperColor = function(){
+            return this.colors
+        }
+        function SubType1(){
+            SuperType1.call(this)
+        }
+
+        let instance4 = new SubType1()
+        console.log(instance4.colors)
+        console.log(instance4.getSuperColor())
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 继承-05 寄生组合式继承</title>
+     <!-- 
+         
+     -->
+</head>
+<body>
+    <script>
+       function object(o){
+           function f(){}
+           f.prototype = o
+           return new f()
+       }
+       function SuperType(name){
+           this.name = name
+           this.color = ["red","blue","black"]
+       }
+       SuperType.prototype.sayName = function(){
+           alert(this.name)
+       }
+
+       function SubType(name,age){
+           SuperType.call(this,name)
+           this.age = age
+       }
+       function inheritPrototype(subType, superType){
+           var prototype = object(superType.prototype)  //创建原型对象  ,在这一步模拟超类的原型对象创建一个新的对象，所以不会产生原型对象的属性
+           /*
+           两种写法：
+           var prototype = object(new superType())  //这种使用的时 superType 的实例对象，创建实例的时候会创建 superType 的属性
+           var prototype = object(superType.prototype) //这种使用的时 superType 的原型对象，不包括superType构造函数的属性
+           */
+           prototype.constructor = subType    //增江对象，弥补因原型重写导致丢失默认的constructor属性
+           subType.prototype = prototype
+        //    return subType
+       }
+
+       inheritPrototype(SubType,SuperType) 
+
+       SubType.prototype.sayAge = function(){
+           alert(this.age)
+       }
+
+       var instance = new SubType("nelson",25)
+       console.dir(instance)
+       instance.sayName()
+       instance.sayAge()
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 继承-05 寄生式继承</title>
+     <!-- 
+         思路：
+            借助原型 可以基于已有的对象创建新对象，同时还不必因此创建自定义类型
+        注意：此继承额目的只是想让一个对象与另外一个对象保持一致，但是包含引用类型值的属性始终会被共享。
+     -->
+</head> 
+<body>
+    <script>
+       function object(o){
+           function f(){}
+           f.prototype = o
+           return new f()
+       }
+        var Person = {
+           name:"Nicholas",
+           friends: ["shelby","count","van"]
+       }
+
+       var anotherPerson = object(Person)
+       anotherPerson.name = "Greg"
+       anotherPerson.friends.push("rob")
+
+       var yetAnotherPerson = object(Person)
+       yetAnotherPerson.name = "Linda"
+       yetAnotherPerson.friends.push("Barbie")
+       
+       alert(Person.friends)
+
+    </script>
+</body>
+</html>

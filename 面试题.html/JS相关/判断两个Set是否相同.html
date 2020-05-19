@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function isSame(set1, set2) {
+            let arr = set1.values()
+            for (const item of arr) {
+                if (!set2.has(item)) return false
+            }
+            return true
+        }
+        function isSameSet(set1, set2) {
+            return isSame(set1, set2) && isSame(set2, set1)
+        }
+        const a = {}
+        const b = 1
+        const c = 'ScriptOJ'
+
+        const set1 = new Set([a, b, c])
+        const set2 = new Set([a, c, b,"3"])
+
+        console.log(isSameSet(set1, set2)) // => true
+    </script>
+</body>
+
+</html>

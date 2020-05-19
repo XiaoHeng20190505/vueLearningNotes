@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组去重</title>
+</head>
+<body>
+    <script>
+        const unique = (arr) => [...new Set(arr)]
+        console.log(unique([0, 1, 2, 2, 3, 3, 4]))
+        console.log(unique([0, 1, '1', '1', 2]))
+
+        // unique([0, 1, 2, 2, 3, 3, 4]) // => [0, 1, 2, 3, 4]
+        // unique([0, 1, '1', '1', 2]) // => [0, 1, '1', 2]
+    </script>
+</body>
+</html>

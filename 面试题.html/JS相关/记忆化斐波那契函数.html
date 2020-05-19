@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci</title>
+</head>
+
+<body>
+    <script>
+        // [0, 1, 2, 4, 8, 16]
+        // 后一个数等于前一个数的2倍
+        const seq = (
+            (meno=[0,1]) => {
+                const fib = (n) => {
+                    let result = meno[n]
+                    if(typeof result !== "number"){
+                        result = fib(n-1) + fib(n-1)
+                        meno[n] = result
+                    }
+                    console.log(meno)
+                    return result
+                }
+                return fib
+            }
+        )()
+        console.log(seq(5))
+        // [0, 1, 1, 2, 3, 5]
+        // 后一个数等于前面两个数的和
+        const fibonacci = ((memo = [0, 1]) => {
+            const fib = (n) => {
+                let result = memo[n]
+                if (typeof result !== "number") {
+                    result = fib(n - 1) + fib(n - 2)
+                    memo[n] = result
+                }
+                console.log(memo)
+                return result
+            }
+            return fib
+        })()
+        console.log(fibonacci(5))
+    </script>
+</body>
+
+</html>
