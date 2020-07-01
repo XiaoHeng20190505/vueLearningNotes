@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model组件详解--使用http-vue-loader引入vue文件</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+</head>
+<style>
+    .mySelect select {
+        width: 100px;
+        height: 30px;
+    }
+</style>
+<body>
+    <div id="modelStudy" class="container">
+        <div class="myselect">
+            <index v-model="selectValue" class="mySelect"></index>
+            <p> 我是组件内选择的数据，通过自定义的v-model 传出来：{{ selectValue }}</p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#modelStudy',
+        components: {
+            'index': httpVueLoader('index.vue') // 组件的名称要和 vue 文件的名称一致，否则无法成功引入。
+        },
+        data(){
+            return {
+                selectValue: ''
+            }
+        }
+    })
+</script>
+</html>
