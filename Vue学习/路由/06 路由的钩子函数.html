@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 路由的命名规则及参数传递</title>
+</head>
+<body>
+    <div id="route01">
+        <router-link :to="{name:'User',params:{number:'123'}}">用户路由</router-link>
+        <router-link to="/register">注册路由</router-link>
+
+        <!-- 路由界面显示 -->
+        <router-view></router-view>
+    </div>
+
+    <template id="user">
+        <div>
+            <p>用户界面  </p>
+            
+            <router-link to="/user/route_child1">子路由1</router-link>
+            <router-link to="/user/route_child2">子路由2</router-link>
+            <router-link to="/user/route_child3">子路由3</router-link>
+
+            <router-view></router-view>
+        </div>
+    </template>
+    <template  id="register">
+        <div>
+            <p>注册界面</p>
+            <button @click="up">跳转到上一个路由</button>
+        </div>
+    </template>
+
+    <template id="route_child1">
+        <div>
+            子路由1{{$route.params.number}}
+        </div>
+    </template>
+    <template id="route_child2">
+        <div>
+            子路由2{{$route.params.number}}
+        </div>
+    </template>
+    <template id="route_child3">
+        <div>
+            子路由3.id：{{number}},性名：{{name}}，年龄：{{age}}
+            <button @click="go">跳转到注册页面</button>
+        </div>
+    </template>
+</body>
+<script src="../../Resource/vue-2.6.js"></script>
+<script src="../../Resource/vue-router v3.1.6.js"></script>
+<script>
+    var userTemplate = {
+        template: "#user"
+    }
+    var registerTemplate = {
+        template: "#register",
+        methods:{
+            up(){
+                this.$router.go(-1)
+            }
+        }
+    }
+
+    var route_child1 = {
+        template: "#route_child1"
+    }
+    var route_child2 = {
+        template: "#route_child2"
+    }
+    var route_child3 = {
+        props:["name","age","number"],
+        template: "#route_child3",
+        methods: {
+            go(){
+                this.$router.push({path:'/register',params:{number:'123'}})
+            }
+        }
+    }
+
+    var routeObj = new VueRouter({
+        routes: [
+            {path:'/'},
+            {
+                path: '/user',
+                component: userTemplate,
+               
+                children: [
+                        // {path:'/user/:id',component:route_child1,props:true},
+                        // {path:'/user/:id',component:route_child2,props:true},
+                        // {path:'/user/:id',component:route_child3,props:{name: "nelson",age:24}}//通过路由传递静态参数给子组件
+                        {
+                            name: 'User',
+                            path: '/user/:number', 
+                            component: route_child3,
+                            props: route => (
+                                { name: "nelson", age: 24, number: route.params.number }
+                            )
+                        }
+                    ]
+            },
+            
+            {
+                path:'/register',
+                component:registerTemplate,
+                beforeEnter:(to,from,next)=>{
+                    console.log("我是在进入注册界面之前触发")
+                    next()
+                }
+            }
+        ]
+    })
+    routeObj.beforeEach((to,from,next) => {
+        console.log("我是在路由改变之前触发")
+        console.log(to)
+        console.log(from)
+        console.log(next)
+        next()
+        
+    })
+    routeObj.afterEach((to,from)=>{
+        console.log("我是在路由跳转完成之后触发")
+    })
+    var vm = new Vue({
+        el:"#route01",
+        data:{
+            msg:"消息"
+        },
+        router:routeObj
+    })   
+    
+</script>
+</html>

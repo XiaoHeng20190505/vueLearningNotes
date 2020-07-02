@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="route01">
+        <router-link to="/user">用户路由</router-link>
+        <router-link to="/register">注册路由</router-link>
+
+        <!-- 路由界面显示 -->
+        <router-view>
+            <router-link></router-link>
+        </router-view>
+    </div>
+
+    <template id="user">
+        <div>
+            <p>用户界面</p>
+            <router-link to="/user/route_child1">子路由1</router-link>
+            <router-link to="/user/route_child2">子路由2</router-link>
+            <router-link to="/user/route_child3">子路由3</router-link>
+
+            <router-view></router-view>
+        </div>
+    </template>
+    <template  id="register">
+        <div>
+            <p>注册界面</p>
+        </div>
+    </template>
+
+    <template id="route_child1">
+        <div>
+            子路由1
+        </div>
+    </template>
+    <template id="route_child2">
+        <div>
+            子路由2
+        </div>
+    </template>
+    <template id="route_child3">
+        <div>
+            子路由3
+        </div>
+    </template>
+</body>
+<script src="../../Resource/vue-2.6.js"></script>
+<script src="../../Resource/vue-router v3.1.6.js"></script>
+<script>
+    var userTemplate = {
+        template: "#user"
+    }
+    var registerTemplate = {
+        template: "#register"
+    }
+
+    var route_child1 = {
+        template: "#route_child1"
+    }
+    var route_child2 = {
+        template: "#route_child2"
+    }
+    var route_child3 = {
+        template: "#route_child3"
+    }
+
+    var routeObj = new VueRouter({
+        routes: [
+            {path:'/'},
+            {path:'/user',component:userTemplate,
+            children: [
+                {path:'/user/route_child1',component:route_child1},
+                {path:'/user/route_child2',component:route_child2},
+                {path:'/user/route_child3',component:route_child3}
+            ]
+            },
+            {path:'/register',component:registerTemplate}
+        ]
+    })
+
+    var vm = new Vue({
+        el:"#route01",
+        data:{
+            msg:"消息"
+        },
+        router:routeObj
+    })   
+    
+</script>
+</html>

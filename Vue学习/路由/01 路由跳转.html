@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="route01">
+        <router-link to="/user">用户路由</router-link>
+        <router-link to="/register">注册路由</router-link>
+
+        <!-- 路由界面显示 -->
+        <router-view></router-view>
+    </div>
+
+    <template id="user">
+        <div>
+            <p>用户界面</p>
+        </div>
+    </template>
+    <template  id="register">
+        <div>
+            <p>注册界面</p>
+        </div>
+    </template>
+</body>
+<script src="../../Resource/vue-2.6.js"></script>
+<script src="../../Resource/vue-router v3.1.6.js"></script>
+<script>
+    var userTemplate = {
+        template: "#user"
+    }
+    var registerTemplate = {
+        template: "#register"
+    }
+    var routeObj = new VueRouter({
+        routes: [
+            {path:'/'},
+            {path:'/user',component:userTemplate},
+            {path:'/register',component:registerTemplate}
+        ]
+    })
+
+    var vm = new Vue({
+        el:"#route01",
+        data:{
+            msg:"消息"
+        },
+        router:routeObj,
+        methods:{
+        },
+        created(){
+            console.log(this.$router.options)
+        }
+    })   
+    
+</script>
+</html>
