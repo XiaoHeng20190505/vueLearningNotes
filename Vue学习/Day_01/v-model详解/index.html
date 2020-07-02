@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>v-model详解</title>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/http-vue-loader"></script> -->
-    <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/http-vue-loader"></script>
 </head>
+<style>
+    hr {
+        border-color: cornflowerblue;
+    }
+</style>
 <body>
     <div id="modelStudy" class="container">
         <!-- input 的双向绑定 -->
         <div class="input">
             <input type="text" name="inputText" id="textModel" v-model="inputModel" value="本身的数据，如果没有v-model会显示出来">
             <p> 我是输入框的双向绑定值：{{ inputModel }}</p>
+            <input type="number" @input='handle' v-model='number'>
+            <p> 我是 number 的双向绑定值：{{ typeof number }}</p>
+
         </div>
+        <hr>
         <!-- textarea 的双向绑定 -->
         <div class="textarea">
             <textarea name="inputTextarea" id="textareaModel" cols="50" rows="5" v-model="textareaModel" >
@@ -24,25 +33,99 @@
             </textarea>
             <p> 我是文本域的双向绑定值：{{ textareaModel }} </p>
         </div>
+        <hr>
+        <!-- 复选框 checkbox -->
+        <div class="checkbox">
+            <!-- 单选 -->
+            <div class="singleCheckbox">
+                <input type="checkbox"  v-model="checked">
+                <label for="checkbox">{{ checked }}</label>
+            </div>
+            <!-- 多选 -->
+            <div class="multipeCheckbox">
+                <input type="checkbox" id="peter" value="peter" v-model="checkedNames">
+                <label for="peter">peter</label>
 
-        <div class="myselect">
-            <index v-model="selectValue"></index>
-            <p> 我是组件内选择的数据，通过自定义的v-model 传出来：{{ selectValue }}</p>
+                <input type="checkbox" id="nelson" value="nelson" v-model="checkedNames">
+                <label for="nelson">nelson</label>
+
+                <input type="checkbox" id="nancy" value="nancy" v-model="checkedNames">
+                <label for="nancy">nancy</label>
+                <p> 选中复选框的值： {{ checkedNames }}</p>
+                <p>选中复选框的值，会被添加到v-model的数组中去，保存多个</p>
+            </div>
         </div>
+        <hr>
+        <!-- 单选框 radio -->
+        <div class="radio">
+            <input type="radio" id="radio1" value="One" v-model="selectRadio">
+            <label for="radio1"> One </label>
+
+            <input type="radio" id="radio2" value="Two" v-model="selectRadio">
+            <label for="radio2"> Two </label>
+
+            <input type="radio" id="radio2" value="Tree" v-model="selectRadio">
+            <label for="radio2"> Tree </label>
+
+            <p>选中的单选框的值： {{ selectRadio }} </p>
+            <p>上次选中单选框的值会被当前值给替换掉，只保存一个</p>
+        </div>
+        <hr>
+        <!-- 选择框 select -->
+        <div class="select">
+            <select id="Dict" v-model="selectValue">
+                <option value="A" label="A"></option>
+                <option value="B" label="B"></option>
+                <option value="C" label="C"></option>
+                <option value="D" label="D"></option>
+                <option value="E" label="E"></option>
+            </select>
+
+            <p>下拉框的选中值： {{ selectValue }}</p>
+
+            <!-- 使用 v-for 动态渲染下拉框 -->
+            <select v-model="selectedValue">
+                <option v-for="(item, index) in selectList" :value="item.value" :key="index"> {{ item.key }} </option>
+            </select>
+            <p>动态渲染下拉框，选中的数据： {{ selectedValue }}</p>
+        </div>
+        
     </div>
 </body>
 <script type="text/javascript">
     
     var vm = new Vue({
         el:'#modelStudy',
-        components: {
-            'index': httpVueLoader('index.vue')
-        },
         data(){
             return {
                 inputModel:'nelson',
+                number: 1,
                 textareaModel: 'textareaModel 的初始值',
-                selectValue: '',
+                checked: false, //checkbox 的值
+                checkedNames: [],   //选中的复选框的值
+                selectRadio: '',    // 选中单选框的值
+                selectValue: '',    // 下拉框的选中值
+                // select 下拉的数据
+                selectList: [
+                    {
+                        key: 'peter',
+                        value: 'p'
+                    },
+                    {
+                        key: 'nelson',
+                        value: 'n'
+                    },{
+                        key: 'sweety',
+                        value: 's'
+                    }
+                ],
+                selectedValue: ''   // v-for 渲染的下拉选中项
+
+            }
+        },
+        methods: {
+            handle(){
+                console.log(typeof this.number)
             }
         }
     })

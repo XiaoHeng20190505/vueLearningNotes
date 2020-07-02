@@ -13,7 +13,9 @@ v-model的限制适用范围：
         components.
 修饰符
     .lazy 取代 input 监听change 事件
+        默认情况 input 的 v-model 是在输入时，就同步 input 的值。而 v-model.lazy 时在 input 的值改变，即input 失去焦点时触发
     .number 输入字符串转换为有效的数字
+        默认情况下，v-model 的返回值都是字符串。而 v-model.number 会将输入的内容转换成 number 类型
     .trim 输入首尾空格过滤
 
 v-model 会忽略表单元素的 value，checked，selected attribute 的初始值，而总是使用Vue实例中的数据来源作为初始值。应该通过data选项中声明初始值。
