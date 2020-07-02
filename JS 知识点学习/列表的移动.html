@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表的移动</title>
+    <script src="../Resource//jquery-3.5.1.js"></script>
+</head>
+<style>
+    li {
+        
+    }
+    .up, .down, .top {
+        margin: 10px 10px;
+        display: none;
+    }
+    li:hover .up {
+        color: lightgreen;
+        display: inline;
+        
+    }
+    li:hover  .down  {
+        color: lightgreen;
+        display: inline;
+        
+    }
+    li:hover .top  {
+        color: lightgreen;
+        display: inline;
+        
+    }
+    
+</style>
+<body>
+    <div class="container">
+        <ul class="list">
+            <!-- <li>我是第 1 行 <span class="sHidden"><a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li>
+            <li>我是第 2 行 <span class="sHidden"><a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li>
+            <li>我是第 3 行 <span class="sHidden"><a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li>
+            <li>我是第 4 行 <span class="sHidden"><a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li>
+            <li>我是第 5 行 <span class="sHidden"><a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li> -->
+            <li>我是第 1 行 <a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></li>
+            <li>我是第 2 行 <a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></li>
+            <li>我是第 3 行 <a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></span></li>
+            <li>我是第 4 行 <a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></li>
+            <li>我是第 5 行 <a href="#" class="up">上移</a><a href="#" class="down">下移</a><a href="#" class="top">置顶</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    $('.list').on('click', 'a', function(evnet){
+        evnet.preventDefault;
+        debugger;
+        var parent = $(this).parent();
+        console.log(parent)
+        var parents = $(this).parents('.list');
+        console.log(parents)
+        var len=parents.children().length;
+        console.log(parent.index())
+        
+		if(($(this).is(".up") || $(this).is(".top")) && parent.index()==0){
+			alert("已经置顶！");
+			return false;
+		}else if(($(this).is(".down")) && parent.index()==len-1){
+			alert("已经置底！");
+			return false;
+		}
+		switch (true) {
+			case $(this).is(".up"):
+				var prev = parent.prev();
+				parent.insertBefore(prev);
+				break;
+			case $(this).is(".down"):
+				var next = parent.next();
+				parent.insertAfter(next);
+				break;
+			case $(this).is(".top"):
+				parents.prepend(parent);
+				break;
+		}
+    })
+</script>
+</html>

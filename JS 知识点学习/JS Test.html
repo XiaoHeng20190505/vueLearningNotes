@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [ 'a', 'A' ],
+            obj = { a: 1, A: 2, b: 4 }
+            objS = {},
+            count = 0
+        for(let val of arr){
+            console.log(val)
+            console.log(obj[val])
+            if(obj[val]){
+                count += obj[val]
+            }
+        }
+        console.log(count)
+    </script>
+</body>
+
+</html>

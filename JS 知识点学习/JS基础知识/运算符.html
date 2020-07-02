@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运算符</title>
+</head>
+<body>
+    <script>
+        // 一元运算符 ++ --
+        let str1 = '我是字符串',
+            str2 = '123',
+            str3 = '',
+            num1 = 1
+        // console.log(++str1) //NaN 先将字符串转换成数字，在进行++
+        // console.log(str1++) //NaN 先将字符串转换成数字，在进行++
+        // console.log(str3++) //0 先将字符串转换成数字，在进行++
+        // console.log(str2++) //123 先将字符串转换成数字，在进行++
+        // console.log(++str2) //125 先将字符串转换成数字，在进行++
+
+        // console.log(++false) //报错 ++ Boolean类型时会报错
+        
+        //排除上边转换的影响
+        // 一元运算符 ! 取反    先将数字，字符串转成成Boolean类型在进行取反
+        console.log(Boolean(str1))  //true 
+        console.log(Boolean(str2))  //true 
+        console.log(Boolean(str3))  //false 
+        console.log(Boolean(num1))  //true
+
+        console.log(!str1)  //false 
+        console.log(!str2)  //false 
+        console.log(!str3)  //true 
+        console.log(!num1)  //false 
+
+        // 逻辑运算符
+        
+        console.log(1+2 && true)    //true 
+        console.log(null && true)    //null 
+        console.log(true && 1+2)    //3 
+        
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const o1 = { a: 1 };
+        const o2 = { b: 2 };
+        const o3 = { c: 3 };
+
+        const obj = Object.assign(o1, o2, o3);
+        console.log(obj === o1)
+        console.log(JSON.stringify(obj)); // { a: 1, b: 2, c: 3 }
+        console.log(JSON.stringify(o1));  // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变。
+
+        let obj1 = {a:1};
+        let obj2 = {a:1};
+        console.log(obj1 == obj2)
+    </script>
+</body>
+
+</html>
