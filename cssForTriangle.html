@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯CSS画三角形</title>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="vertical">
+        <div class="child">
+            1
+        </div>
+        1111111111111
+    </div>
+    <style>
+        /* 纯CSS画三角形 */
+        .box
+        {
+            width:0px;
+            height:0px;
+
+            border-top:50px solid rgba(0,0,0,0);
+            border-right:50px solid rgba(0,0,0,0);
+            border-bottom: 50px solid green;
+            border-left: 50px solid rgba(0,0,0,0);
+            }
+        .vertical {
+            margin: 20px;
+            width: 200px;   
+            /* height: 200px; */
+            border: 1px solid red;
+            /* writing-mode: horizontal-tb ; */
+            /* position: relative; */
+            /* overflow: hidden; */
+        }
+        .child {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            /* top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; */
+            /* margin: auto; */
+            /* overflow: hidden; */
+            float: left;
+
+            /* position: absolute; */   
+        }
+    </style>
+</body>
+</html>

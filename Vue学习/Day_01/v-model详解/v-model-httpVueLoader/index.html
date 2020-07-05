@@ -19,17 +19,25 @@
             <index v-model="selectValue" class="mySelect"></index>
             <p> 我是组件内选择的数据，通过自定义的v-model 传出来：{{ selectValue }}</p>
         </div>
+        <change v-model="myObject"></change>
     </div>
 </body>
 <script type="text/javascript">
     var vm = new Vue({
         el:'#modelStudy',
         components: {
-            'index': httpVueLoader('index.vue') // 组件的名称要和 vue 文件的名称一致，否则无法成功引入。
+            'index': httpVueLoader('index.vue'), // 组件的名称要和 vue 文件的名称一致，否则无法成功引入。
+            'change': httpVueLoader('change.vue')
         },
         data(){
             return {
-                selectValue: ''
+                selectValue: '',
+                myObject: {},
+            }
+        },
+        watch: {
+            myObject(){
+                console.log('this.myObject', this.myObject);
             }
         }
     })
