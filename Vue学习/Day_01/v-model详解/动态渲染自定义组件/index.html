@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态渲染自定义组件</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+</head>
+<style>
+    ul li {
+        list-style: none;
+    }
+</style>
+<body>
+    <div id="modelStudy" class="container">
+        <div class="component">
+            <ul>
+                <li v-for=" item in dataList">
+                    <index :data="item"></index>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#modelStudy',
+        components: {
+            'index': httpVueLoader('index.vue'), // 组件的名称要和 vue 文件的名称一致，否则无法成功引入。
+        },
+        data(){
+            return {
+                dataList: [
+                {
+                    name: 'nelson',
+                    age: 25
+                },
+                {
+                    name: 'peter',
+                    age: 24
+                },
+                {
+                    name: 'sweety',
+                    age: 18
+                }
+            ]
+            }
+        }
+    })
+</script>
+</html>
